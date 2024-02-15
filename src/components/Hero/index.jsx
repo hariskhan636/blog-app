@@ -12,7 +12,7 @@ const Hero = () => {
           <img
             src={blog.img}
             alt="blog-img"
-            className="w-[400px] h-[300px] object-contain"
+            className="w-[400px]  object-contain"
           />
           <div>
             <h1 className="text-white font-bold text-3xl">{blog.title}</h1>
