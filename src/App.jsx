@@ -1,6 +1,6 @@
 import "./App.css";
 import Navbar from "./layout/Navbar";
-import { Hero, Login } from "./components";
+import { Hero, Login, Register } from "./components";
 import { Outlet, Route, Routes } from "react-router-dom";
 
 function App() {
@@ -9,7 +9,7 @@ function App() {
       <Route
         path="/"
         element={
-          <div className="w-full bg-black">
+          <div className="w-full min-h-screen bg-black">
             <div className="px-16 flex justify-center items-center">
               <div className="w-full">
                 <Navbar />
@@ -28,7 +28,7 @@ function App() {
           }
         />
         <Route path={"/login"} element={<Login />} />
-        <Route path={"/register"} element={<div>Register</div>} />
+        <Route path={"/register"} element={<Register />} />
       </Route>
     </Routes>
   );
