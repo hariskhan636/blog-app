@@ -1,5 +1,6 @@
 import "./App.css";
 import Navbar from "./layout/Navbar";
+import { Hero } from "./components";
 
 function App() {
   return (
@@ -8,6 +9,9 @@ function App() {
         <div className="w-full">
           <Navbar />
         </div>
+      </div>
+      <div className="px-16">
+        <Hero />
       </div>
     </div>
   );
