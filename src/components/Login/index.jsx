@@ -1,8 +1,11 @@
 import { useState } from "react";
 import axios from "axios";
+import { Navigate } from "react-router-dom";
+
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [redirect, setRedirect] = useState(false);
 
   async function login(ev) {
     ev.preventDefault();
@@ -16,11 +19,23 @@ const Login = () => {
         }
       );
 
-      console.log(response.data.userRole);
+      if (response.data.msg === "Login Confirmed") {
+        alert("Login Successful");
+        localStorage.setItem("userRole", response.data.userRole);
+        window.location.href = "/";
+        setRedirect(true);
+      } else {
+        alert("Invalid Credentials");
+      }
     } catch (error) {
       console.error("Login failed:", error);
     }
   }
+
+  if (redirect) {
+    return <Navigate to="/" />;
+  }
+
   return (
     <form
       onSubmit={login}

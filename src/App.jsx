@@ -1,6 +1,14 @@
 import "./App.css";
 import Navbar from "./layout/Navbar";
-import { Hero, Login, Register } from "./components";
+import {
+  Hero,
+  Login,
+  Register,
+  AddBlog,
+  AllPosts,
+  PostDetail,
+  EditPost,
+} from "./components";
 import { Outlet, Route, Routes } from "react-router-dom";
 
 function App() {
@@ -19,16 +27,33 @@ function App() {
           </div>
         }
       >
-        <Route
-          index
-          element={
-            <div className="px-16">
-              <Hero />
-            </div>
-          }
-        />
+        {localStorage.getItem("userRole") === null && (
+          <Route
+            index
+            element={
+              <div className="px-16 py-8">
+                <Hero />
+              </div>
+            }
+          />
+        )}
+
+        {localStorage.getItem("userRole") !== null && (
+          <Route
+            index
+            element={
+              <div className="px-16 py-8">
+                <AllPosts />
+              </div>
+            }
+          />
+        )}
+
         <Route path={"/login"} element={<Login />} />
         <Route path={"/register"} element={<Register />} />
+        <Route path={"/add-blog"} element={<AddBlog />} />
+        <Route path={"/post/:id"} element={<PostDetail />} />
+        <Route path={"/edit/:id"} element={<EditPost />} />
       </Route>
     </Routes>
   );

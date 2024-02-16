@@ -40,7 +40,9 @@ const Register = () => {
         value={username}
         onChange={(e) => setUsername(e.target.value)}
       />
-      {username === "" && <p className="text-red-500">Please enter username</p>}
+      {username === "" && (
+        <p className="text-red-500 self-start ml-14">Please enter username</p>
+      )}
       <input
         className="border-2 border-slate-500 w-[80%] p-2"
         type="password"
@@ -49,7 +51,9 @@ const Register = () => {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-      {password === "" && <p className="text-red-500">Please enter password</p>}
+      {password === "" && (
+        <p className="text-red-500 self-start ml-14">Please enter password</p>
+      )}
       <div className="flex flex-row gap-2 items-center justify-center w-[80%]">
         <label className="text-white mr-1">
           <input
@@ -82,7 +86,9 @@ const Register = () => {
           Admin
         </label>
       </div>
-      {role === "" && <p className="text-red-500">Please select role</p>}
+      {role === "" && (
+        <p className="text-red-500 self-start ml-14">Please select role</p>
+      )}
 
       <button
         disabled={username === "" || password === "" || role === ""}
