@@ -24,9 +24,11 @@ const Navbar = () => {
 
   return (
     <nav className="navbar w-full flex py-6 justify-between items-center">
-      <h2 className=" text-white font-bold">
-        <Link to="/">BlogsArena</Link>
-      </h2>
+      <h1 className=" text-white font-bold text-3xl">
+        <Link to="/">
+          Blogs<span className="text-blue-500">Arena</span>
+        </Link>
+      </h1>
       <ul className="list-none flex justify-end items-center flex-1">
         {userRole === "Contributor" && (
           <>

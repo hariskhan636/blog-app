@@ -17,6 +17,10 @@ const PostDetail = () => {
   function deleteBlog() {
     fetch(`http://localhost:5000/api/v1/post/${id}`, {
       method: "DELETE",
+      // headers: {
+      //   "Content-Type": "application/json",
+      //   Authorization: `Bearer ${localStorage.getItem("token")}`,
+      // },
     }).then((res) => {
       res.json().then((data) => {
         console.log(data);
@@ -45,7 +49,7 @@ const PostDetail = () => {
       {localStorage.getItem("userRole") === "Editor" && (
         <div className="flex gap-4">
           <button className="rounded-md bg-blue-700 text-white border-0 px-4 py-2">
-            Edit
+            <Link to={`/edit/${post?._id}`}>Edit</Link>
           </button>
         </div>
       )}
