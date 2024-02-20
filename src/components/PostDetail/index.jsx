@@ -8,25 +8,18 @@ const PostDetail = () => {
   const [post, setPost] = useState();
   const { id } = useParams();
   useEffect(() => {
-    console.log(id);
-    UseGet(API_URL.POST, { id: id }).then((res) => {
-      res.json().then((post) => {
-        setPost(post);
-      });
+    UseGet(`${API_URL.POST}${id}`).then((res) => {
+      setPost(res);
     });
   }, []);
 
   function deleteBlog() {
-    UseDelete(
-      `${API_URL.POST}/delete`,
-      { id: id },
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("token"),
-        },
-      }
-    ).then((response) => {
+    UseDelete(`${API_URL.POST}/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    }).then((response) => {
       response.json().then((data) => {
         console.log(data);
       });

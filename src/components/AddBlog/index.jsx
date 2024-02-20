@@ -11,7 +11,7 @@ const AddBlog = () => {
   async function addPost(ev) {
     ev.preventDefault();
     UsePost(
-      `${API_URL.POST}/add-post`,
+      `${API_URL.POST}add-post`,
       {
         title,
         body,
@@ -21,6 +21,8 @@ const AddBlog = () => {
         headers: {
           "Content-Type": "application/json",
           Authorization: "Bearer " + localStorage.getItem("token"),
+          withCredentials: true,
+          // cookies: localStorage.getItem("token"),
         },
       }
     ).then((response) => {

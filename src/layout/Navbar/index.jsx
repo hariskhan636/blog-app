@@ -13,7 +13,7 @@ const Navbar = () => {
 
   async function logout() {
     UseGet(API_URL.LOGOUT).then((response) => {
-      if (response.data.msg === "Logout Successful") {
+      if (response.msg === "Logout Successful") {
         localStorage.clear();
         setUserRole(null);
         navigate("/");

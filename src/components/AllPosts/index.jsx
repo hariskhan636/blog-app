@@ -1,14 +1,12 @@
 import { useEffect, useState } from "react";
 import react from "../../assets/react.svg";
 import { Link } from "react-router-dom";
-import { UsePost } from "../../hooks";
+import { UseGet } from "../../hooks";
 import { API_URL } from "../../config";
 const AllPosts = () => {
   const [post, setPost] = useState([]);
   useEffect(() => {
-    UsePost(API_URL.POST)
-      .then((res) => res.json().then((posts) => setPost(posts)))
-      .then((data) => console.log(data));
+    UseGet(API_URL.POST).then((res) => setPost(res));
   }, []);
 
   return (

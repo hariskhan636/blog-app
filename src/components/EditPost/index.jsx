@@ -12,9 +12,9 @@ const EditPost = () => {
   useEffect(() => {
     async function getPost() {
       UseGet(`http://localhost:5000/api/v1/post/${id}`).then((response) => {
-        setTitle(response.data.title);
-        setBody(response.data.body);
-        setImage(response.data.image);
+        setTitle(response.title);
+        setBody(response.body);
+        setImage(response.image);
       });
     }
     getPost();
@@ -23,11 +23,21 @@ const EditPost = () => {
   async function editPost(ev) {
     ev.preventDefault();
 
-    UsePut(`http://localhost:5000/api/v1/post/${id}`, {
-      title,
-      body,
-      image,
-    }).then((response) => {
+    UsePut(
+      `http://localhost:5000/api/v1/post/${id}`,
+      {
+        title,
+        body,
+        image,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+          withCredentials: true,
+        },
+      }
+    ).then((response) => {
       if (response.data.msg === "Blog Updated Successfully") {
         alert("Blog Updated Successfully");
         window.location.href = "/";

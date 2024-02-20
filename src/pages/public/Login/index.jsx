@@ -19,6 +19,10 @@ const Login = () => {
         alert("Login Successful");
         localStorage.setItem("userRole", response.userRole);
         localStorage.setItem("token", response.token);
+        document.cookie = `token=${response.token}; path=/; secure; HttpOnly; SameSite=Strict;`;
+
+        console.log("Response", response);
+        console.log("Cookies", document.cookie);
         navigate("/");
       } else {
         alert("Invalid Credentials");
