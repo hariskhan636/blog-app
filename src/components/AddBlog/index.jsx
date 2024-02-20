@@ -1,7 +1,8 @@
-import axios from "axios";
 import { useState } from "react";
 // import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import { API_URL } from "../../config";
+import { UsePost } from "../../hooks";
 const AddBlog = () => {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
@@ -9,20 +10,25 @@ const AddBlog = () => {
 
   async function addPost(ev) {
     ev.preventDefault();
-    const response = await axios
-      .post("http://localhost:5000/api/v1/post/add-post", {
+    UsePost(
+      `${API_URL.POST}/add-post`,
+      {
         title,
         body,
         image,
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-
-    if (response.data.msg === "Blog Added Successfully") {
-      alert("Blog Added Successfully");
-      window.location.href = "/";
-    }
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      }
+    ).then((response) => {
+      if (response.msg === "Blog Added Successfully") {
+        alert("Blog Added Successfully");
+        window.location.href = "/";
+      }
+    });
   }
 
   return (

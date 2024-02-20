@@ -1,25 +1,24 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { UseGet } from "../../hooks";
+import { API_URL } from "../../config";
 
 const Navbar = () => {
   const [userRole, setUserRole] = useState(null);
+  const navigate = useNavigate();
   useEffect(() => {
     setUserRole(localStorage.getItem("userRole"));
   }, []);
 
   async function logout() {
-    const response = await axios
-      .get("http://localhost:5000/api/v1/user/logout")
-      .catch((err) => {
-        console.log(err);
-      });
-
-    if (response.data.msg === "Logout Successful") {
-      localStorage.removeItem("userRole");
-      setUserRole(null);
-      window.location.href = "/";
-    }
+    UseGet(API_URL.LOGOUT).then((response) => {
+      if (response.data.msg === "Logout Successful") {
+        localStorage.clear();
+        setUserRole(null);
+        navigate("/");
+      }
+    });
   }
 
   return (

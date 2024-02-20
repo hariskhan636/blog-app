@@ -1,39 +1,29 @@
 import { useState } from "react";
-import axios from "axios";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { UsePost } from "../../../hooks";
+import { API_URL } from "../../../config";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [redirect, setRedirect] = useState(false);
+  const navigate = useNavigate();
 
   async function login(ev) {
     ev.preventDefault();
 
-    try {
-      const response = await axios.post(
-        "http://localhost:5000/api/v1/user/login",
-        {
-          username,
-          password,
-        }
-      );
-
-      if (response.data.msg === "Login Confirmed") {
+    UsePost(API_URL.LOGIN, {
+      username,
+      password,
+    }).then((response) => {
+      if (response.msg === "Login Confirmed") {
         alert("Login Successful");
-        localStorage.setItem("userRole", response.data.userRole);
-        window.location.href = "/";
-        setRedirect(true);
+        localStorage.setItem("userRole", response.userRole);
+        localStorage.setItem("token", response.token);
+        navigate("/");
       } else {
         alert("Invalid Credentials");
       }
-    } catch (error) {
-      console.error("Login failed:", error);
-    }
-  }
-
-  if (redirect) {
-    return <Navigate to="/" />;
+    });
   }
 
   return (

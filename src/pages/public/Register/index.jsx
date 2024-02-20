@@ -1,5 +1,6 @@
 import { useState } from "react";
-import axios from "axios";
+import { UsePost } from "../../../hooks";
+import { API_URL } from "../../../config";
 const Register = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -8,23 +9,15 @@ const Register = () => {
   async function register(ev) {
     ev.preventDefault();
 
-    try {
-      const response = await axios.post(
-        "http://localhost:5000/api/v1/user/register",
-        {
-          username,
-          password,
-          role,
-        }
-      );
-
-      console.log(response.data.userRole);
+    UsePost(API_URL.REGISTER, {
+      username,
+      password,
+      role,
+    }).then((response) => {
       if (response.data.msg === "User Created successfully") {
         window.location.href = "login";
       }
-    } catch (error) {
-      console.error("Registration failed:", error);
-    }
+    });
   }
   return (
     <form

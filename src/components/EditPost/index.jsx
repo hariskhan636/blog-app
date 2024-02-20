@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+
 import { useParams } from "react-router-dom";
+import { UseGet, UsePut } from "../../hooks";
 const EditPost = () => {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
@@ -10,14 +11,11 @@ const EditPost = () => {
 
   useEffect(() => {
     async function getPost() {
-      const response = await axios
-        .get(`http://localhost:5000/api/v1/post/${id}`)
-        .catch((err) => {
-          console.log(err);
-        });
-      setTitle(response.data.title);
-      setBody(response.data.body);
-      setImage(response.data.image);
+      UseGet(`http://localhost:5000/api/v1/post/${id}`).then((response) => {
+        setTitle(response.data.title);
+        setBody(response.data.body);
+        setImage(response.data.image);
+      });
     }
     getPost();
   }, []);
@@ -25,20 +23,16 @@ const EditPost = () => {
   async function editPost(ev) {
     ev.preventDefault();
 
-    const response = await axios
-      .put(`http://localhost:5000/api/v1/post/${id}`, {
-        title,
-        body,
-        image,
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-
-    if (response.data.msg === "Blog Updated Successfully") {
-      alert("Blog Updated Successfully");
-      window.location.href = "/";
-    }
+    UsePut(`http://localhost:5000/api/v1/post/${id}`, {
+      title,
+      body,
+      image,
+    }).then((response) => {
+      if (response.data.msg === "Blog Updated Successfully") {
+        alert("Blog Updated Successfully");
+        window.location.href = "/";
+      }
+    });
   }
 
   return (

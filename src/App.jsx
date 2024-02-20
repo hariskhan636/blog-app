@@ -1,16 +1,8 @@
 import "./App.css";
 import Navbar from "./layout/Navbar";
-import {
-  Hero,
-  Login,
-  Register,
-  AddBlog,
-  AllPosts,
-  PostDetail,
-  EditPost,
-} from "./components";
+import { Hero, AddBlog, AllPosts, PostDetail, EditPost } from "./components";
 import { Outlet, Route, Routes } from "react-router-dom";
-
+import { Login, Register } from "./pages/public";
 function App() {
   return (
     <Routes>

@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import react from "../../assets/react.svg";
 import { Link } from "react-router-dom";
+import { UsePost } from "../../hooks";
+import { API_URL } from "../../config";
 const AllPosts = () => {
   const [post, setPost] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:5000/api/v1/post/")
+    UsePost(API_URL.POST)
       .then((res) => res.json().then((posts) => setPost(posts)))
       .then((data) => console.log(data));
   }, []);
@@ -18,7 +20,7 @@ const AllPosts = () => {
               className={`w-full h-[400px] flex border-slate-400 border-2 px-10 py-6 justify-between items-center  ${
                 index !== post.length - 1 ? "mb-6" : "mb-0"
               }`}
-              key={post._id}
+              key={index}
             >
               <img
                 src={react}

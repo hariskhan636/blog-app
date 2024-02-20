@@ -2,12 +2,14 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import react from "../../assets/react.svg";
 import { Link } from "react-router-dom";
+import { UseDelete, UseGet } from "../../hooks";
+import { API_URL } from "../../config";
 const PostDetail = () => {
   const [post, setPost] = useState();
   const { id } = useParams();
   useEffect(() => {
     console.log(id);
-    fetch(`http://localhost:5000/api/v1/post/${id}`).then((res) => {
+    UseGet(API_URL.POST, { id: id }).then((res) => {
       res.json().then((post) => {
         setPost(post);
       });
@@ -15,14 +17,17 @@ const PostDetail = () => {
   }, []);
 
   function deleteBlog() {
-    fetch(`http://localhost:5000/api/v1/post/${id}`, {
-      method: "DELETE",
-      // headers: {
-      //   "Content-Type": "application/json",
-      //   Authorization: `Bearer ${localStorage.getItem("token")}`,
-      // },
-    }).then((res) => {
-      res.json().then((data) => {
+    UseDelete(
+      `${API_URL.POST}/delete`,
+      { id: id },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      }
+    ).then((response) => {
+      response.json().then((data) => {
         console.log(data);
       });
     });
